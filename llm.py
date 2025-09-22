@@ -12,6 +12,11 @@ class Prompt:
     metadata: dict = field(default_factory=dict)  # Fixing mutable default 
     max_tokens: int = None
 
+def set_ollama_env():
+    """Set environment variables for Ollama configuration"""
+    os.environ["litellm_env"] = "ollama"
+    os.environ["OLLAMA_MODEL_NAME"] = "ollama/gpt-oss:20b"
+
 def set_azure_env():
     """Set environment variables for Azure OpenAI configuration"""
     os.environ["litellm_env"] = "azure"
@@ -54,6 +59,12 @@ def generate_response_raw(messages: List[Dict], maxTokens: int=None, tools: List
             api_key=os.environ["AZURE_API_KEY"],
             api_version=os.environ["AZURE_API_VERSION"],
             max_tokens=maxTokens,
+            tools=tools,
+            messages=messages
+        )
+    if env == "ollama":
+        response = completion(
+            model=os.environ["OLLAMA_MODEL_NAME"],            
             tools=tools,
             messages=messages
         )

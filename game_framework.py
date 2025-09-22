@@ -247,7 +247,7 @@ class Agent:
         for _ in range(max_iterations):
             # Construct a prompt that includes the Goals, Actions, and the current Memory
             prompt = self.construct_prompt(self.goals, memory, self.actions)
-
+            # print(prompt)
             print("Agent thinking...")
             # Generate a response from the agent
             response = self.prompt_llm_for_action(prompt)

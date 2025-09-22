@@ -1,10 +1,10 @@
 from game_framework import Agent, Goal, Action, ActionRegistry
 from game_framework import Environment, AgentFunctionCallingActionLanguage
 from typing import List
-from llm import generate_response, set_azure_env
+import llm
 import os
 
-set_azure_env()
+llm.set_azure_env()
 
 # Define the agent's goals
 goals = [
@@ -66,7 +66,7 @@ action_registry.register(Action(
 environment = Environment()
 
 # Create an agent instance
-agent = Agent(goals, agent_language, action_registry, generate_response, environment)
+agent = Agent(goals, agent_language, action_registry, llm.generate_response, environment)
 
 # Run the agent with user input
 user_input = "Write a README for this project."
